@@ -15,7 +15,7 @@ export class LinkedList {
     const node = new LinkedListNode(value);
 
     if (!this._head) {
-      this.createHeadAndTail(node);
+      this._createHeadAndTail(node);
     } else {
       this._tail.next = node;
       this._tail = node;
@@ -27,7 +27,7 @@ export class LinkedList {
     const node = new LinkedListNode(value);
 
     if (!this._head) {
-      this.createHeadAndTail(node);
+      this._createHeadAndTail(node);
     } else {
       node.next = this._head;
       this._head = node;
@@ -36,7 +36,7 @@ export class LinkedList {
     return this;
   }
 
-  createHeadAndTail(node) {
+  _createHeadAndTail(node) {
     this._head = node;
     this._tail = node;
   }
