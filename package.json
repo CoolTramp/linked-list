@@ -1,0 +1,13 @@
+{
+  "name": "linked_list",
+  "version": "1.0.0",
+  "main": "llv1.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
