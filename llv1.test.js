@@ -49,6 +49,6 @@ test("the delete method", () => {
   list.show();
 
   expect(writeSpy).toHaveBeenCalledWith("1 -> 2 -> 3");
-  expect(list.tail.value).toBe(3);
+  expect(list._tail.value).toBe(3);
   writeSpy.mockRestore();
 });
