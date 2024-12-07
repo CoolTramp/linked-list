@@ -14,23 +14,20 @@ class LinkedList {
   append(value) {
     const node = new LinkedListNode(value);
 
-    if (!this.head) {
-      this.head = node;
-      this.tail = node;
+    if (this.isHeadExist(node)) {
+      return this;
     } else {
       this.tail.next = node;
       this.tail = node;
     }
-
     return this;
   }
 
   prepend(value) {
     const node = new LinkedListNode(value);
 
-    if (!this.head) {
-      this.head = node;
-      this.tail = node;
+    if (this.isHeadExist(node)) {
+      return this;
     } else {
       node.next = this.head;
       this.head = node;
@@ -39,11 +36,13 @@ class LinkedList {
     return this;
   }
 
-  isHeadExist() {
+  isHeadExist(node) {
     if (!this.head) {
       this.head = node;
       this.tail = node;
+      return true;
     }
+    return false;
   }
 
   show() {
