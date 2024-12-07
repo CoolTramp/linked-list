@@ -14,8 +14,8 @@ class LinkedList {
   append(value) {
     const node = new LinkedListNode(value);
 
-    if (this.isHeadExist(node)) {
-      return this;
+    if (!this.head) {
+      this.createHeadAndTail(node);
     } else {
       this.tail.next = node;
       this.tail = node;
@@ -26,8 +26,8 @@ class LinkedList {
   prepend(value) {
     const node = new LinkedListNode(value);
 
-    if (this.isHeadExist(node)) {
-      return this;
+    if (!this.head) {
+      this.createHeadAndTail(node);
     } else {
       node.next = this.head;
       this.head = node;
@@ -36,13 +36,9 @@ class LinkedList {
     return this;
   }
 
-  isHeadExist(node) {
-    if (!this.head) {
-      this.head = node;
-      this.tail = node;
-      return true;
-    }
-    return false;
+  createHeadAndTail(node) {
+    this.head = node;
+    this.tail = node;
   }
 
   show() {
