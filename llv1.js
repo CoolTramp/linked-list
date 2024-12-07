@@ -1,4 +1,4 @@
-class LinkedListNode {
+export class LinkedListNode {
   constructor(value, next = null) {
     this.value = value;
     this.next = next;
@@ -7,18 +7,18 @@ class LinkedListNode {
 
 export class LinkedList {
   constructor() {
-    this.head;
-    this.tail;
+    this._head = null;
+    this._tail = null;
   }
 
   append(value) {
     const node = new LinkedListNode(value);
 
-    if (!this.head) {
+    if (!this._head) {
       this.createHeadAndTail(node);
     } else {
-      this.tail.next = node;
-      this.tail = node;
+      this._tail.next = node;
+      this._tail = node;
     }
     return this;
   }
@@ -26,113 +26,85 @@ export class LinkedList {
   prepend(value) {
     const node = new LinkedListNode(value);
 
-    if (!this.head) {
+    if (!this._head) {
       this.createHeadAndTail(node);
     } else {
-      node.next = this.head;
-      this.head = node;
+      node.next = this._head;
+      this._head = node;
     }
 
     return this;
   }
 
   createHeadAndTail(node) {
-    this.head = node;
-    this.tail = node;
-  }
-
-  reverseRec() {
-    const newNode = new LinkedList();
-    let node = this.head;
-
-    function rec(node) {
-      if (node) rec(node.next);
-      if (node?.value) {
-        newNode.append(node.value);
-      }
-    }
-    rec(node);
-
-    this.head = newNode.head;
-    this.tail = newNode.tail;
+    this._head = node;
+    this._tail = node;
   }
 
   reverseEuristic() {
     const newNode = new LinkedList();
-    let node = this.head;
+    let node = this._head;
 
     while (node) {
       newNode.prepend(node.value);
       node = node.next;
     }
 
-    this.head = newNode.head;
-    this.tail = newNode.tail;
+    this._head = newNode._head;
+    this._tail = newNode._tail;
   }
 
   reverse() {
-    let current = this.head;
+    let current = this._head;
     let prev = null;
-    let next = null;
 
     while (current) {
-      next = current.next;
+      const next = current.next;
       current.next = prev;
       prev = current;
       current = next;
     }
 
-    this.tail = this.head;
-    this.head = prev;
+    this._tail = this._head;
+    this._head = prev;
   }
 
-  delete(number) {
-    if (!this.head) return null;
+  delete(value) {
+    if (!this._head) return null;
 
-    let node = this.head;
-
-    if (number === this.head.value) {
+    if (value === this._head.value) {
       this.shift();
       return null;
     }
 
-    while (node) {
-      if (number === node.next?.value) {
+    let node = this._head;
+
+    while (node.next) {
+      if (value === node.next.value) {
         node.next = node.next.next;
-        if (node.next === null) {
-          this.tail = node;
+        if (!node.next) {
+          this._tail = node;
         }
-        break;
+        return;
       }
       node = node.next;
     }
-    console.log(this.tail);
   }
 
   shift() {
-    this.head = this.head.next;
+    if (this._head) {
+      this._head = this._head.next;
+    }
   }
 
   show() {
     let str = "";
-    let node = this.head;
+    let node = this._head;
     while (node) {
       str += `${node.value}`;
-
       node = node.next;
-
       if (node) str += " -> ";
     }
     process.stdout.write(str);
   }
 }
-
-const list = new LinkedList();
-list.append(1);
-list.append(2);
-list.append(3);
-list.append(4);
-// list.prepend(3);
-// list.reverse();
-list.delete(4);
-list.show();
