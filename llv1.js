@@ -41,11 +41,27 @@ class LinkedList {
     this.tail = node;
   }
 
+  reverse() {
+    const newNode = new LinkedList();
+    let node = this.head;
+
+    function rec(node) {
+      if (node) rec(node.next);
+      if (node?.value) {
+        newNode.append(node.value);
+      }
+    }
+    rec(node);
+
+    this.head = newNode.head;
+    this.tail = node.tail;
+  }
+
   show() {
-    let link = this.head;
-    while (link) {
-      process.stdout.write(`${link.value} ->  `);
-      link = link.next;
+    let node = this.head;
+    while (node) {
+      process.stdout.write(`${node.value} ->  `);
+      node = node.next;
     }
   }
 }
@@ -53,5 +69,8 @@ class LinkedList {
 const list = new LinkedList();
 list.append(1);
 list.append(2);
-list.prepend(3);
+list.append(3);
+list.append(4);
+// list.prepend(3);
+list.reverse();
 list.show();
